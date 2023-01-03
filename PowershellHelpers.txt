@@ -1,0 +1,39 @@
+# Add to your $PROFILE for Powershell.
+
+# Posh Themes
+Import-Module posh-git
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\emodipt-extend.omp.json" | Invoke-Expression
+
+# Powershell Helpers
+Set-PSReadLineOption -PredictionSource History
+
+function Remove-OtherBranches {
+    git branch | Where-Object {$_ | Select-String -notmatch "master" } | ForEach-Object {git branch -D $_.Trim() }
+}
+
+function Get-GitStatus { & git status $args }
+New-Alias -Name gs -Value Get-GitStatus
+
+function Get-GitAdd { & git add . $args }
+New-Alias -Name ga -Value Get-GitAdd -Force -Option AllScope
+
+function Set-GitCommit { & git commit -m $args }
+New-Alias -Name gcom -Value Set-GitCommit
+
+function Set-GitPullMaster { & git pull origin master }
+New-Alias -Name gpm -Value Set-GitPullMaster
+
+function Set-GitPullBranch { & git pull origin $args }
+New-Alias -Name gpb -Value Set-GitPullBranch
+
+function Set-GitPushBranch { & git push origin $args }
+New-Alias -Name gpshb -Value Set-GitPushBranch
+
+function Set-GitCheckout { & git checkout -b $args }
+New-Alias -Name gcb -Value Set-GitCheckout
+
+function Get-GitFetchAll { & git fetch --all }
+New-Alias -Name gfa -Value Get-GitFetchAll -Force -Option AllScope
+
+function Get-GitFetchBranch { & git fetch $args }
+New-Alias -Name gfb -Value Get-GitFetchBranch -Force -Option AllScope

@@ -29,11 +29,23 @@ New-Alias -Name gpb -Value Set-GitPullBranch
 function Set-GitPushBranch { & git push origin $args }
 New-Alias -Name gpshb -Value Set-GitPushBranch
 
-function Set-GitCheckout { & git checkout -b $args }
-New-Alias -Name gcb -Value Set-GitCheckout
+function Set-GitCheckoutBranch { & git checkout -b $args }
+New-Alias -Name gchkb -Value Set-GitCheckoutBranch
+
+function Set-GitCheckout { & git checkout $args }
+New-Alias -Name gchk -Value Set-GitCheckout
 
 function Get-GitFetchAll { & git fetch --all }
 New-Alias -Name gfa -Value Get-GitFetchAll -Force -Option AllScope
 
 function Get-GitFetchBranch { & git fetch $args }
 New-Alias -Name gfb -Value Get-GitFetchBranch -Force -Option AllScope
+
+function Get-GitBranch { & git branch }
+New-Alias -Name gbran -Value Get-GitBranch -Force -Option AllScope
+
+function GoToWork { 
+  $workSpace = 'C:\Users\USER\workspace\'
+  $workAddress = $workSpace + $args
+  set-location $workAddress
+  }
